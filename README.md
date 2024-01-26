@@ -1,2 +1,3 @@
 # Analysis-of-Efficient-List-Operations
- Evaluating how different data structures perform when creating different lists ADT for various operations.
+### Evaluating how different data structures perform when creating different lists ADT for various operations.
+This project involves analyzing the efficiency of various data structures for implementing the List ADT in terms of different operations. The goal is to categorize each data structure as "fast" or "slow" for operations such as searching, getting the middle element, inserting at the beginning or end, and deleting from the beginning or end. The analysis will consider the constant number of steps or proportional steps based on the size of the list for each operation. The project also includes a programming component, where a Sorting Hockey Pucks game is implemented using Stack or Queue objects, and the efficiency of the algorithm is explained in a concise write-up.
