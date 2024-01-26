@@ -1,0 +1,156 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+
+\title{EECS2101 - Assignment 1}
+\author{Daniel Chahine - 219598994}
+
+
+
+\begin{document}
+\maketitle
+
+
+% Table \ref{table:1} is an example of a referenced element.
+\begin{table}[h!]
+\setlength{\tabcolsep}{25pt}
+\renewcommand{\arraystretch}{1.5}
+\centering
+\begin{tabular}{ ||c|c|c||  }
+ \hline
+  & \textbf{Fast} & \textbf{Slow}\\ 
+ \hline
+ (a) Search for an element. & --- & A B C D E F G   \\\hline 
+ (b) Get the middle element. & A & B C D E F G  \\\hline
+ (c) Insert at the beginning of the list. & B C E F G & A D\\\hline
+ (d) Insert at the end of the list. & C D E F G  & A B \\\hline
+ (e) Delete from the beginning of the list. & B C E F G & A D \\\hline 
+ (f) Delete from the end of the list. & A D E G & B C F \\
+ 
+ \hline
+\end{tabular}
+\caption{Efficiency of different data structure with different operations}
+\label{table:1}
+\end{table}
+
+The above table uses the following definitions for the letters A, B, C, D, E, F, and G:\\
+A. array (like the Java array)\\
+B. singly-linked list, with “next” only, and with “head” only.\\
+C. singly-linked list, with “next” only, and with “head” and “tail”.\\
+D. reverse singly-linked list, with “prev” only, and with “tail” only.\\
+E. doubly-linked list with “next” and “prev”, and with “head” and “tail”.\\
+F. circular singly-linked list, with “next” only, and with “tail” only.\\
+G. circular doubly-linked list, with “next” and “prev”, and with “tail” only.\\
+
+\section{Search for an element}
+\subsection{Array - Slow}
+With the assumption that the array is made of random elements and not ordered, looking for an element in an array will be slow. We have to go through every element in the worst-case scenario when the element is the last one or not presented in the array. This process of traversing the array will have a time complexity of O(n). Hence proportional to the size of the array.
+
+\subsection{Singly-Linked list, with "next" only, and with "head" only - Slow}
+\label{sec: hello}
+With an assumption similar to the array, looking for an item in a singly-linked list is proportional to the array. We start at the head and traverse the list until we reach the end (the node is null) or until we find the element. This process have also have a time complexity of O(n) meaning it will be proportional to the size of the linked list.
+
+\subsection{Singly-linked list, with “next” only, and with “head” and “tail” - Slow}
+Having a reference to the tail will not make the singly-linked list any faster when searching for an element. The assumption and the process of searching is similar to 1.2, traversing the list while checking for the item, and if found stop traversing. Process is proportional to the size of list with a time complexity of O(n).
+
+\subsection{Reverse singly-linked list, with “prev” only, and with “tail” only - Slow}
+This is similar to the Singly-linked list with "next" while having reference to the "head" - 1.2, just the other way around. With similar assumption, we start from the tail, traverse the list backwards until we find the element or till the beginning of the list (node is null). Time complexity of O(n), hence proportional to the size of the list.
+
+\subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail” - Slow}
+Begin able to traverse back and forth is not going to make the search of an element faster. Similar process to 1.2, 1.3, or 1.4. Start from one end and traverse until we find the element, or until node is null. Slow because it will be proportional to the size of the list, O(n).
+
+
+\subsection{Circular singly-linked list, with “next” only, and with “tail” only - Slow}
+Similar process to a singly-linked list with reference to the head. Only difference is when we're stopping the loop when our node is equal to our starting node (either head or tail), or when we find the element. Since we have to traverse the whole list, it means that the number of steps taken by the search is proportional to the size of the list with O(n).
+
+\subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only - Slow}
+Similar to 1.6 and with the same assumptions (list is random and not ordered), we have to traverse the whole list. In this case we can choose any direction (next or prev) and any starting point (either head or tail). The number of steps taken by the search is also proportional to the size of the list, since in the worst case (if element is not there) we have to traverse the whole list. Slow with time complexity of O(n).
+
+
+\section{Get the middle element}
+\subsection{Array - Fast}
+Getting the middle element in an array can be done in a constant number of steps. Because the array data type is stored in a way where all elements are next to each other, indexing (getting an item through its index) an array requires constant steps since we're assuming we have the size of the array. We only have to obtain the element at index: $\lfloor {size/2} \rfloor$. No need to traverse the whole array to get this element, since the value of the element is calculate by knowing the address of the first element + (index * size of one element) which gives us the address the wanted element. The time complexity is O(1). Hence it is fast.
+
+\subsection{Singly-Linked list, with "next" only, and with "head only}
+Getting the middle element in singly-linked list with head given would require some steps that are proportional to the size of the list. In order to go the middle item, we need to get the size of the list first, hence we need to traverse the list all the way to the end while keeping a counter variable. Once we reach the end (when our node is null) we have to start by traversing the list again till we reach a counter value of $\lfloor {listSize/2} \rfloor$. This process require a number of steps proportional to the size of the list with a time complexity of O(n). Hence this operation is slow.
+
+\subsection{Singly-linked list, with “next” only, and with “head” and “tail”}
+Having a head and a tail to a singly-linked won't differ much from having just a head (Process in 2.2). Obtaining the middle item requires us to traverse the whole singly-linked list from the head, get the size in a counter variable, start from the head again until $\lfloor {listSize/2} \rfloor$, and return the element. This operation will take a number of step proportional to the size of the list. Hence it's slow with O(n).
+
+
+\subsection{Reverse singly-linked list, with “prev” only, and with “tail” only}
+
+\subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail”}
+
+\subsection{Circular singly-linked list, with “next” only, and with “tail” only.}
+
+\subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only.}
+
+
+\section{Insert at the beginning of the list.}
+\subsection{Array}
+\subsection{Singly-Linked list, with "next" only, and with "head only}
+\subsection{Singly-linked list, with “next” only, and with “head” and “tail”}
+\subsection{Reverse singly-linked list, with “prev” only, and with “tail” only}
+\subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail”}
+\subsection{Circular singly-linked list, with “next” only, and with “tail” only.}
+\subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only.}
+
+
+\section{Insert at the end of the list.}
+\subsection{Array}
+\subsection{Singly-Linked list, with "next" only, and with "head only}
+\subsection{Singly-linked list, with “next” only, and with “head” and “tail”}
+\subsection{Reverse singly-linked list, with “prev” only, and with “tail” only}
+\subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail”}
+\subsection{Circular singly-linked list, with “next” only, and with “tail” only.}
+\subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only.}
+
+
+\section{Delete from the beginning of the list}
+\subsection{Array}
+\subsection{Singly-Linked list, with "next" only, and with "head only}
+\subsection{Singly-linked list, with “next” only, and with “head” and “tail”}
+\subsection{Reverse singly-linked list, with “prev” only, and with “tail” only}
+\subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail”}
+\subsection{Circular singly-linked list, with “next” only, and with “tail” only.}
+\subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only.}
+
+\section{Delete from the end of the list}
+\subsection{Array}
+\subsection{Singly-Linked list, with "next" only, and with "head only}
+\subsection{Singly-linked list, with “next” only, and with “head” and “tail”}
+\subsection{Reverse singly-linked list, with “prev” only, and with “tail” only}
+\subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail”}
+\subsection{Circular singly-linked list, with “next” only, and with “tail” only.}
+\subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only.}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
