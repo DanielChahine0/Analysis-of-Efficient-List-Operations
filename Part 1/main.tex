@@ -29,11 +29,11 @@
  (a) Search for an element. & --- & A B C D E F G   \\\hline 
  (b) Get the middle element. & A & B C D E F G  \\\hline
  (c) Insert at the beginning of the list. & B C E F G & A D\\\hline
- (d) Insert at the end of the list. & C D E F G  & A B \\\hline
+ (d) Insert at the end of the list. & A C D E F G  &B \\\hline
  (e) Delete from the beginning of the list. & B C E F G & A D \\\hline 
  (f) Delete from the end of the list. & A D E G & B C F \\
  
- \hline
+\hline
 \end{tabular}
 \caption{Efficiency of different data structure with different operations}
 \label{table:1}
@@ -48,7 +48,13 @@ E. doubly-linked list with “next” and “prev”, and with “head” and �
 F. circular singly-linked list, with “next” only, and with “tail” only.\\
 G. circular doubly-linked list, with “next” and “prev”, and with “tail” only.\\
 
-Some Assumptions: The array is made of random elements and they are not ordered. LIST ADT FROM ARRAY SHOULDN'T BE FULL. When we're adding an element to a linked-list, we can call the element being added N. When we're traversing through a list, we're assuming that every iteration we're doing node = node.next (or node.prev when traversing a reversed linked-list). 
+\textbf{Some Assumptions}:
+\begin{itemize}
+    \item All given values in our data structures are made of random elements and they are not ordered.
+    \item When adding an item from an array that implements a list ADT, we assume that the size of the array will always be greater than the size of the list. Meaning there's always more space to add an element. This makes the process easier as we don't have to duplicate all the elements when adding at the end.
+    \item When we're adding an element to a linked-list, we can call the element being added N.
+    \item When we're traversing through a list, we're assuming that for every iteration we're doing node = node.next (or node.prev when traversing a reversed/doubly linked-list). 
+\end{itemize}
 
 
 %-------------------------------------------------------------%
@@ -57,26 +63,26 @@ Some Assumptions: The array is made of random elements and they are not ordered.
 
 \section{Search for an element}
 \subsection{Array - Slow}
-With the assumption that the array is made of random elements and not ordered, looking for an element in an array will be slow. We have to go through every element in the worst-case scenario when the element is the last one or not presented in the array. This process of traversing the array will have a time complexity of O(n). Hence proportional to the size of the array.
+Since we're searching for an element we have to go through every element. In the worst case, the element is the last one or not presented in the array. This process of traversing the array will have a time complexity of O(n). Hence proportional to the size of the array.
 
 \subsection{Singly-Linked list, with "next" only, and with "head" only - Slow}
-With an assumption similar to the array, looking for an item in a singly-linked list is proportional to the array. We start at the head and traverse the list until we reach the end (the node is null) or until we find the element. This process also has a time complexity of O(n) meaning it will be proportional to the size of the linked list.
+We start at the head and traverse the list until we reach the end (the node is null) or until we find the element. After every iteration we move to the next node (node = node.next) This process also has a time complexity of O(n) meaning it will be proportional to the size of the linked list.
 
 \subsection{Singly-linked list, with “next” only, and with “head” and “tail” - Slow}
-Having a reference to the tail will not make the singly-linked list any faster when searching for an element. The assumptions and the process of searching are similar to 1.2, traversing the list while checking for the item and if found, stop traversing. The process is proportional to the size of the list with a time complexity of O(n).
+Having a reference to the tail will not allow us to search faster. The process of searching is similar to 1.2, traversing the list while checking for the item and if found, stop traversing. The process is proportional to the size of the list with a time complexity of O(n).
 
 \subsection{Reverse singly-linked list, with “prev” only, and with “tail” only - Slow}
 This is similar to the Singly-linked list with "next" while having reference to the "head" - 1.2, just the other way around. With a similar assumption, we start from the tail, and traverse the list backwards until we find the element or till the beginning of the list (node is null). The time complexity of O(n), therefore the number of steps is proportional to the size of the list.
 
 \subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail” - Slow}
-Being able to traverse back and forth is not going to make the search for an element faster. Similar process to 1.2, 1.3, or 1.4. Start from one end and traverse until we find the element, or until the node is null. Slow because it will be proportional to the size of the list, O(n).
+Being able to traverse back and forth will not make the search for an element faster. Similar process to 1.2, 1.3, or 1.4. Start from one end and traverse until we find the element, or until the node is null. Slow because it will be proportional to the size of the list, O(n).
 Another approach could be starting from the head and tail at the same time and traversing the list from both sides. Even though this process might seem more efficient, the number of steps taken is still proportional to the size of the list. Hence slow.
 
 \subsection{Circular singly-linked list, with “next” only, and with “tail” only - Slow}
-Similar process to a singly-linked list with reference to the head. The only difference is that we stop the loop when our node is equal to our starting node (either head or tail), or when we find the element. Since we have to traverse the whole list, it means that the number of steps taken by the search is proportional to the size of the list with O(n).
+Similar process to a singly-linked list with a reference to the head. The only difference is that we stop the loop when our node is equal to our starting node (loop until node = tail), or when we find the element. Since we still have to traverse the whole list, it means that the number of steps taken by the search is proportional to the size of the list with O(n).
 
 \subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only - Slow}
-Similar to 1.6 and with the same assumptions (the list is random and not ordered), we have to traverse the whole list. In this case, we can choose any direction (next or prev) and any starting point (either head or tail). The number of steps taken by the search is also proportional to the size of the list, since in the worst case (if the element is not there) we have to traverse the whole list. Slow with time complexity of O(n).
+Similar to 1.6, we have to traverse the whole list. In this case, we can choose any direction (next or prev) and start from the tail. The number of steps taken by the search is also proportional to the size of the list, since in the worst case (if the element is not there) we have to traverse the whole list. Slow with time complexity of O(n).
 
 
 %-------------------------------------------------------------%
@@ -85,10 +91,10 @@ Similar to 1.6 and with the same assumptions (the list is random and not ordered
 
 \section{Get the middle element}
 \subsection{Array - Fast}
-Getting the middle element in an array can be done in a constant number of steps. Because the array data type is stored in a way where all elements are next to each other, indexing (getting an item through its index) an array requires constant steps since we're assuming we have the size of the array. We only have to obtain the element at index: $\lfloor {size/2} \rfloor$. No need to traverse the whole array to get this element, since the value of the element is calculated by knowing the address of the first element + (index * size of one element) which gives us the address of the wanted element. The time complexity is O(1). Hence it is fast.
+Getting the middle element in an array can be done in a constant number of steps. Because the array data type is stored in a way where all elements are next to each other, indexing (getting an item through its index) an array requires constant time complexity (constant number of steps) with the size of the array being given. We only have to obtain the element at index: $\lfloor {ListSize/2} \rfloor$. No need to traverse the whole array to get this element, since the value of the element is calculated by knowing the address of the first element + (index * size of one element) which gives us the address of the wanted element. The time complexity is O(1). Hence it is fast.
 
 \subsection{Singly-Linked list, with "next" only, and with "head only - Slow}
-Getting the middle element in a singly-linked list with a "head" given would require some steps that are proportional to the size of the list. To go to the middle item, we need to get the size of the list first, hence we need to traverse the list to the end while keeping a counter variable. Once we reach the end (when our node is null) we have to start by traversing the list again till we reach a counter value of $\lfloor {listSize/2} \rfloor$. This process requires many steps proportional to the size of the list with a time complexity of O(n). Hence this operation is slow.
+Getting the middle element in a singly-linked list with a "head" given would require a number of steps that are proportional to the size of the list. To go to the middle item, we need to get the size of the list first, hence we need to traverse the list to the end while keeping a counter variable. Once we reach the end (when our node is null) we have to start by traversing the list again till we reach a counter value of $\lfloor {listSize/2} \rfloor$. This process requires many steps proportional to the size of the list with a time complexity of O(n). Hence this operation is slow.
 
 \subsection{Singly-linked list, with “next” only, and with “head” and “tail” - Slow}
 Having a head and a tail to a singly-linked won't differ much from having just a head (Process in 2.2). Obtaining the middle item requires us to traverse the whole singly-linked list from the head, get the size in a counter variable, start from the head again until $\lfloor {listSize/2} \rfloor$, and return the element. This operation will take several steps proportional to the size of the list. Hence it's slow with O(n).
@@ -111,17 +117,16 @@ Having a circular doubly-linked list with next and prev pointers won't make a bi
 %-------------------------------------------------------------%
 
 \section{Insert a new element at the beginning of the list}
-\textbf{ASSUME THE LIST IS NOT FULL AND THERE IS SPACE IN THE LIST ADT}
-We're assuming that the head node and the tail node will be similar to any other node, and have a value and a pointer to another node.
+
 
 \subsection{Array - Slow}
-When working with arrays, inserting at the beginning could be considered slow. Because an array has a special property of having all of its elements in one chunk of memory, inserting at the beginning requires us to shift all of its elements once to the right (in order for the first element to have an index of 0). Hence the number of steps needed to perform an insertion at the beginning will be proportional to the size of the list (slow).
+When working with arrays, inserting at the beginning is considered slow as inserting at the beginning requires us to shift all of the elements of the array once to the right (for the first element to have an index of 0 - keep the right index for all the elements). Hence the number of steps needed to perform an insertion at the beginning will be proportional to the size of the list (slow).
 
 \subsection{Singly-Linked list, with "next" only, and with "head only - Fast}
 It's much faster to insert at the beginning of a simple singly-linked list. With the assumption that the head node could hold a value and a pointer to the next element, the element we're inserting will be pointing to the head. So when inserting the element, we just need to our new element point to the previous head and call our element the new head. We can see that the number of steps to perform this operation will be constant, which means that this operation will be fast given this data structure. 
 
 \subsection{Singly-linked list, with “next” only, and with “head” and “tail” - Fast}
-Having a tail in the singly-linked list won't change the insertion at the beginning. We only need to make our current node point to the head and make the head of the list be our new node. We can see that we need a constant number of steps to perform this operation - Fast.
+Having a tail in the singly-linked list won't change the insertion at the beginning. We only need to make our current node point to the head and make the head of the list our new node. We can see that we need a constant number of steps to perform this operation - Fast.
 
 \subsection{Reverse singly-linked list, with “prev” only, and with “tail” only - Slow}
 Because we only have the tail of the list, adding at the beginning of the list could take more time than other data structures. We need to traverse the whole list until we reach the first node (this could be done until the previous pointer is pointing to null). Just with that alone, we discover that the number of steps for this process will be proportional to the size of the list, hence slow. After we reach the first node (which we can call head), we can make it point to our node and make our node point to null. This process will have a time complexity of O(n).  
@@ -141,11 +146,9 @@ To add N at the beginning of our circular doubly-linked list (make it the new he
 %-------------------------------------------------------------%
 
 \section{Insert at the end of the list.}
-With the same assumption as 3, we're assuming that the head and the tail keep a value in them and a reference to another node. For easier reference, we can call our new element N.
 
-\subsection{Array - Slow}
-IDK\\\\
-As we're implementing a list ADT from an array, we give the size of the list beforehand. We're also assuming that we won't add an element to the list when it's full. With those assumptions, we can just index to the end of the list add the new element and increase the number of items by 1.
+\subsection{Array - Fast}
+As we're implementing a list ADT from an array, we're given the size of the array which means we're assuming there's free space in the list. We're also assuming that we won't add an element to the list when it's full. With those assumptions, we can just index to the end of the list add the new element (array[size] = new element) and increase the number of items by 1. We can see that it takes a constant number of steps which makes the operation fast.
 
 \subsection{Singly-Linked list, with "next" only, and with "head" only - Slow}
 Adding a new element at the of singly-linked would be slow because we need to find the tail. Since we don't have any sense of the end of the list, we need to traverse the whole list until we reach the last node (until node.next == null). When we have the end, we just make a pointer from the last node, which we could call tail, to our new element. Also, we have to make our new element point to null to show that it is the last element. The number of steps taken for this process will be proportional to the size of the list as we have to go through every single element (node) till we reach the end. Hence this operation is slow.
@@ -171,8 +174,6 @@ The process is similar to 4.6, the only difference is we have to keep track of t
 %-------------------------------------------------------------%
 
 \section{Delete from the beginning of the list}
-\textbf{ASSUME THE LIST IS NOT FULL AND THERE IS SPACE IN THE LIST ADT}
-We're assuming that the head node and the tail node will be similar to any other node, and have a value and a pointer to another node.
 
 \subsection{Array - Slow}
 Deleting from the beginning of the array will be time-consuming as it will require us to shift all of the other elements, one by one, to the left to replace the empty memory of the array at index 0. This could be done using a for loop with an index starting from 1 and ending at a list length - 1. For each index i, we can do the following operation, array[i-1] = index[i]. The number of steps required by the operation will depend on the size of the list which means that this operation is slow.
@@ -184,7 +185,7 @@ Deleting from the beginning of this data structure could be done just by making 
 Having a reference to the tail won't help us when we're removing from the beginning. Similar to 5.2, we just need to make the new head equal to what the old head was pointing to (head = head.next). A constant number of steps were taken which allows this operation to be fast.
 
 \subsection{Reverse singly-linked list, with “prev” only, and with “tail” only - Slow}
-In order to remove the first node, we need to know what is the first node. In order to do that in a reverse linked list, we have to start from the tail, traverse all the way to the second last (until node.prev.prev = null), make it the last node by making it point to null (node.prev = null). Since we had to traverse the whole linked list, we needed to use a number of steps proportional to the size of the list. Hence, it is a slow operation.
+To remove the first node, we need to know what is the first node. To do that in a reverse linked list, we have to start from the tail, traverse to the second last (until node.prev.prev = null), make it the last node by making it point to null (node.prev = null). Since we had to traverse the whole linked list, we needed to use a number of steps proportional to the size of the list. Hence, it is a slow operation.
 
 \subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail” - Fast}
 Removing the beginning of this data structure is done by making the second element point to null as a previous node (head.next.prev = null). Then make the second element the head (head = head.next). We can see that we used 2 or 3 steps to this operation which means that this operation is fast using this data structure.
@@ -202,23 +203,24 @@ The second element from a circular doubly linked list could be obtained by doing
 
 
 \section{Delete from the end of the list}
-\subsection{Array}
-DON'T KNOW
+\subsection{Array - Fast}
+To delete from the end of the list, we would just decrease the size of the list by 1 which won't allow us to access the item at the last index, hence deleting the last element. This works because our implementation checks for the index before accessing the item (if index $<=$ size-1). The number of steps is constant which makes this operation fast.
+
 
 \subsection{Singly-Linked list, with "next" only, and with "head only - Slow}
-When deleting the last item in a singly linked list with only reference to the head, we need to traverse the whole list until we reach the end of the list. Then we make the second last element point to till signifying that it is the last element. We just loop from the head until node.next.next = null, when we reach that point we just make node.next = null. We can see that the number of steps were proportional to the size of the list as we have to traverse more items when we have a longer list. Hence this operation is slow.
+When deleting the last item in a singly linked list with only reference to the head, we need to traverse the whole list until we reach the end of the list. Then we make the second last element point to till signifying that it is the last element. We just loop from the head until node.next.next = null, when we reach that point we just make node.next = null. We can see that the number of steps was proportional to the size of the list as we have to traverse more items when we have a longer list. Hence this operation is slow.
 
 \subsection{Singly-linked list, with “next” only, and with “head” and “tail” - Slow}
-It might seem like it's easier to remove the last item when we have reference to the head and tail, but since we need a reference for the new tail, we still need to traverse the list from the beginning. To remove the last item we have to loop until we reach the end (node.next = tail). Once we're pointing at the tail, we make the second last node point to null (node.next = null) and make the second last node the new tail (tail = node). We can see that the number of steps increase when the size of the list increase, as we have to traverse more items.
+It might seem like it's easier to remove the last item when we have a reference to the head and tail, but since we need a reference for the new tail, we still need to traverse the list from the beginning. To remove the last item we have to loop until we reach the end (node.next = tail). Once we're pointing at the tail, we make the second last node point to null (node.next = null) and make the second last node the new tail (tail = node). We can see that the number of steps increases when the size of the list increases, as we have to traverse more items.
 
 \subsection{Reverse singly-linked list, with “prev” only, and with “tail” only - Fast}
-This is similar to 5.2. To remove the last last element from the list, we just make the node before the tail our new tail (tail = tail.prev). The number of steps taken is constant, hence this is a fast operation with this data structure.
+This is similar to 5.2. To remove the last element from the list, we just make the node before the tail our new tail (tail = tail.prev). The number of steps taken is constant, hence this is a fast operation with this data structure.
 
 \subsection{Doubly-linked list with “next” and “prev”, and with “head” and “tail” - Fast}
 To remove the last element, we just go to the second last node and make it the new tail (tail = tail.prev). We also have to make it point to null as its next node (tail.next = null). A constant number of steps are needed which makes this operation a fast operation.
 
 \subsection{Circular singly-linked list, with “next” only, and with “tail” only - Slow}
-To do this operation, the element before the tail should become the new tail. But since we don't have a reference to the previous element, we have to traverse the whole list until we reach the element before the tail (node.next = tail). We just make this node point to the first node (node.next = tail.next), then we just set this node as the new tail (tail = node). Since we had to traverse the list, the number of steps required are proportional to the size of the list which makes the operation a slow operation.
+To do this operation, the element before the tail should become the new tail. But since we don't have a reference to the previous element, we have to traverse the whole list until we reach the element before the tail (node.next = tail). We just make this node point to the first node (node.next = tail.next), and then we just set this node as the new tail (tail = node). Since we had to traverse the list, the number of steps required is proportional to the size of the list which makes the operation a slow operation.
 
 \subsection{Circular doubly-linked list, with “next” and “prev”, and with “tail” only - Fast}
 The difference between this data structure and 6.6 is that we have a previous point which allows us to not traverse the list and just access the second last element with tail.prev. We make the first element point to the second last element as its previous element (tail.next.prev = tail.prev), make the second last element point to the first element as its next element (tail.prev.next = tail.next), then just call the second last element the new tail (tail = tail.prev). The process takes a constant number of steps and doesn't rely on the length of the list which means that this process is fast.
