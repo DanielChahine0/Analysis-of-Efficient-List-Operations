@@ -12,7 +12,67 @@ import java.util.ArrayList;
 
 // You may implement a new class here, such as a Stack or a Queue.
 // Any additional class that you use must be included in THIS file.
-class 
+class StackOfNumbers{
+	ArrayList<Integer> list;
+	
+	public StackOfNumbers(ArrayList<Integer> arr) {
+		list = new ArrayList<Integer>(arr);
+	}
+	
+	public StackOfNumbers() {
+		list = new ArrayList<Integer>();
+	}
+	
+	public boolean empty() {
+		return this.list.isEmpty();
+	}
+	
+	public Integer peek() {
+		if (this.list.isEmpty()) return null;
+		return this.list.get(this.list.size()-1);
+	}
+	
+	public Integer pop() {
+		if (this.list.isEmpty()) return null;
+		return this.list.remove(this.list.size()-1);
+	}
+	
+	public boolean push(int element) {
+		boolean state = this.list.add(element);
+		return state;
+	}
+	
+}
+
+class QueueOfNumbers{
+	ArrayList<Integer> list;
+	
+	public QueueOfNumbers(){
+		list = new ArrayList<Integer>();
+	}
+	
+	public QueueOfNumbers(int arr[]) {
+		for (int element: arr) {
+			this.list.add(element);
+		}
+	}
+	
+	public boolean isEmpty() {
+		return this.list.isEmpty();
+	}
+	
+	public Integer peek() {
+		if (this.list.isEmpty()) return null;
+		return this.list.get(0);
+	}
+	
+	public Integer pop() {
+		if (this.list.isEmpty()) return null;
+		return this.list.remove(0);
+	}
+	
+	
+}
 
 public class A1Q2 {
 
@@ -24,9 +84,11 @@ public class A1Q2 {
      */
     public static int solve(int[] arr) {
     	
-    	int numberOfPucks = 0;
+    	if (arr.length == 0) return 0;
     	
-    	for 
+    	
+    	StackOfNumbers stack = new StackOfNumbers();
+    	
     	
     	
         return 0;
