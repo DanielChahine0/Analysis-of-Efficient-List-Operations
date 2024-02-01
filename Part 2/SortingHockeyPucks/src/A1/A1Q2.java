@@ -12,18 +12,14 @@ import java.util.ArrayList;
 
 // You may implement a new class here, such as a Stack or a Queue.
 // Any additional class that you use must be included in THIS file.
-class StackOfNumbers{
+class Stack{
 	ArrayList<Integer> list;
 	
-	public StackOfNumbers(ArrayList<Integer> arr) {
-		list = new ArrayList<Integer>(arr);
-	}
-	
-	public StackOfNumbers() {
+	public Stack() {
 		list = new ArrayList<Integer>();
 	}
 	
-	public boolean empty() {
+	public boolean isEmpty() {
 		return this.list.isEmpty();
 	}
 	
@@ -42,19 +38,23 @@ class StackOfNumbers{
 		return state;
 	}
 	
-}
-
-class QueueOfNumbers{
-	ArrayList<Integer> list;
-	
-	public QueueOfNumbers(){
-		list = new ArrayList<Integer>();
+	public void printElements() {
+		for (Integer item: this.list) {
+			System.out.println(item);
+		}
 	}
 	
-	public QueueOfNumbers(int arr[]) {
-		for (int element: arr) {
-			this.list.add(element);
-		}
+	public int size() {
+		return this.list.size();
+	}
+	
+}
+
+class Queue{
+	ArrayList<Integer> list;
+	
+	public Queue() {
+		list = new ArrayList<Integer>();
 	}
 	
 	public boolean isEmpty() {
@@ -71,8 +71,23 @@ class QueueOfNumbers{
 		return this.list.remove(0);
 	}
 	
+	public boolean push(int element) {
+		boolean state = this.list.add(element);
+		return state;
+	}
+	
+	public void printElements() {
+		for (Integer item: this.list) {
+			System.out.println(item);
+		}
+	}
+	
+	public int size() {
+		return this.list.size();
+	}
 	
 }
+
 
 public class A1Q2 {
 
@@ -84,14 +99,67 @@ public class A1Q2 {
      */
     public static int solve(int[] arr) {
     	
-    	if (arr.length == 0) return 0;
+    	Queue start = new Queue();
+    	Stack buffer = new Stack();
+    	Stack exit = new Stack();
+    	
+    	for (Integer item: arr) {
+    		start.push(item);
+    	}
+    	
+    	int counter = 1;
+    	
+    	while(!start.isEmpty() || !buffer.isEmpty()) {
+    		if (start.peek()!=null && start.peek()==counter) {
+    			exit.push(start.pop());
+    			counter++;
+    		}
+    		else if(buffer.peek()!=null && buffer.peek()==counter) {
+    			exit.push(buffer.pop());
+    			counter++;
+    		}
+    		else if (start.peek()!=null){
+    			buffer.push(start.pop());
+    		}
+    		else {
+    			break;
+    		}
+    		
+    	}
+    	
+    	return exit.size();
     	
     	
-    	StackOfNumbers stack = new StackOfNumbers();
+//    	if (arr.length == 0) return 0;
+//    	
+//    	Stack buffer = new Stack();
+//    	Stack exit = new Stack();
+//    	int counter = 1;
+//    	int i = 0;
+//    	while(i < arr.length) {
+//    		if (arr[i]==counter) {
+//    			exit.push(arr[i]);
+//    			counter++;
+//    			i++;
+//    		}
+//    		else if (buffer.peek()!=null && buffer.peek()==counter) {
+//    			exit.push(buffer.pop());
+//    			counter++;
+//    			
+//    		}
+//    		else {
+//    			buffer.push(arr[i]);
+//    			i++;
+//    		}
+//    	}
+//    	
+//    	while (buffer.peek() != null && buffer.peek()==counter) {
+//    		exit.push(buffer.pop());
+//			counter++;
+//    	}
+//    	
+//    	return exit.size();
     	
-    	
-    	
-        return 0;
     }
 
     /**
@@ -102,7 +170,6 @@ public class A1Q2 {
     public static void main(String[] args) {
 
         // Printing "true" means the return value is correct.
-
         int[] arr = {4, 5, 2, 1, 3};
         System.out.println(3 == solve(arr));
 
@@ -117,5 +184,14 @@ public class A1Q2 {
 
         arr = new int[] {7, 1, 5, 4, 3, 2, 8, 10, 9, 6};
         System.out.println(6 == solve(arr));
+        
+        arr = new int[] {1, 2, 3, 4};
+        System.out.println(4 == solve(arr));
+
+        arr = new int[] {1, 2, 3, 4, 5, 9};
+        System.out.println(5 == solve(arr));
+
+        arr = new int[] {};
+        System.out.println(0 == solve(arr));
     }
 }
