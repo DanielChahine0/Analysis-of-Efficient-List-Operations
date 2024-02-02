@@ -101,7 +101,7 @@ public class A1Q2 {
     	
     	Queue start = new Queue();
     	Stack buffer = new Stack();
-    	Stack exit = new Stack();
+    	Queue exit = new Queue();
     	
     	for (Integer item: arr) {
     		start.push(item);
